@@ -1,9 +1,10 @@
 public class GameManager implements EyeToyListener
 {
   //The game manager every certain time spawns a button.
-  //The button goes to a press area. If the button is pressed when it is in the area, then it adds puntuaction
-  
+  //The button goes to a press area. If the button is pressed when it is in the area, then it adds puntuaction 
   public float spawningPeriod = 6f;
+  public float decreasingThreshold = 0.2;
+  public float minimumThreshold = 1f;
   public float spawningTimer = 0;
   float lastTime;
   public color[] gameColors;
@@ -14,7 +15,11 @@ public class GameManager implements EyeToyListener
   //Punctuation stuff
   public float score;
   public float scoreColor = color(255); //white;
-  public float scoreSize = 32;
+  public float scoreSize = 60;
+  
+  public int lives = 3;
+  
+  //Some sounds
   
   
   
@@ -24,10 +29,10 @@ public class GameManager implements EyeToyListener
     spawnedNotes = new ArrayList<Note>();
     color(120, 10, 10);
     gameColors = new color[TOTAL_BUTTONS];
-    gameColors[0] = color(0, 0, 150);
+    gameColors[0] = color(0, 0, 255);
     gameColors[1] = color(255, 100, 0); //orange
-    gameColors[2] = color(58, 103, 0); //yellow green
-    gameColors[3] = color(120, 10, 10);
+    gameColors[2] = color(0, 255, 0); //yellow green
+    gameColors[3] = color(255, 0, 0);
     
     score = 0;
   }
@@ -41,8 +46,7 @@ public class GameManager implements EyeToyListener
           if(currentNote.isFinalPosition)
           {
             score += 10;
-            currentNote = null;
-            spawnedNotes.remove(0);
+            destroyNote();
           }
         }
         //We check that is the current button in safe zone
@@ -58,6 +62,7 @@ public class GameManager implements EyeToyListener
     if(spawningTimer > spawningPeriod)
     {
        spawningTimer = 0;
+       spawningPeriod -= spawningPeriod > minimumThreshold ? decreasingThreshold : 0;
        spawnNote();
     }
     
@@ -70,7 +75,16 @@ public class GameManager implements EyeToyListener
     textSize(scoreSize);
     textAlign(CENTER);
     fill(255);
-    text(str(int(score)),width/2, height/2);
+    textFont(TITLE_FONT);
+    text(str(int(score)),width/2, 40);
+    
+    //And the lives
+    String livesText = "";
+    for (int i = 0; i < lives; i++)
+    {
+      livesText += "I";
+    }
+    text(livesText,width/2, 80);
     
   }
   
@@ -78,9 +92,22 @@ public class GameManager implements EyeToyListener
   public void spawnNote()
   {
     //Create and add the spawn note to the list
+    
+    if(currentNote != null) lives--;
+    destroyNote();
     int randomNumber = int(random(0,TOTAL_BUTTONS));
     currentNote = new Note(randomNumber, gameColors[randomNumber]);
     spawnedNotes.add(currentNote);
+  }
+  
+  public void destroyNote()
+  {
+    currentNote = null;
+    if(spawnedNotes.size() > 0)
+    {
+      spawnedNotes.remove(0);
+    }
+    
   }
   
 }

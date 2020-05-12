@@ -1,11 +1,15 @@
+
 import processing.video.*;
 import processing.sound.*;
 
 final int TOTAL_BUTTONS = 4;
+PFont TITLE_FONT;
+
 
 //We setup the scenes of our game
 public enum Scene {StartScene, GameScene, EndScene};
 public Scene currentScene = Scene.GameScene;
+public StartScene startScene;
 
 //WE setup the engine of the game
 Capture video;
@@ -23,12 +27,19 @@ void setup() {
   
   //We activate the webcam
   size(640, 360);
+  
+  //We load the soundfile
+  soundFile = new SoundFile(this, "Alan Walker - Alone.mp3");
+  soundFile.loop();
+  
+  //The main font
+  TITLE_FONT = createFont("Gamegirl.ttf",32);
+  
+  //The video
   video = new Capture(this, 640, 360, 30);
   video.start();
   
-  //We load the soundfile
-  //soundFile = new SoundFile(this, "HighwayToHell.mp3");
-  //soundFile.play();
+  startScene = new StartScene();
   
   gameManager = new GameManager();
   
@@ -52,7 +63,7 @@ void draw() {
   {
      //StartScene, GameScene, EndScene
      case StartScene:
-       //STart screen, song selection and play
+       startScene.render();
      break;
      
      case GameScene:
@@ -88,6 +99,7 @@ public void CreateEyeToyButtons()
      });
      myEyeToyButton.addListener(gameManager);
      myEyeToyButton.buttonColor = gameManager.gameColors[i];
+     myEyeToyButton.setRadius(20);
      eyeToyButtons.add(myEyeToyButton);
   }
   
@@ -97,8 +109,8 @@ public void CreateEyeToyButtons()
   float upButtonsSeparation = 100;
   
   eyeToyButtons.get(0).position = new PVector(lateralPadding, height/2);
-  eyeToyButtons.get(1).position = new PVector(width/2 - upButtonsSeparation/2, verticalPadding);
-  eyeToyButtons.get(2).position = new PVector(width/2 + upButtonsSeparation/2, verticalPadding);
+  eyeToyButtons.get(1).position = new PVector(lateralPadding, verticalPadding);
+  eyeToyButtons.get(2).position = new PVector(width - lateralPadding, verticalPadding);
   eyeToyButtons.get(3).position = new PVector(width - lateralPadding, height/2);
 
   

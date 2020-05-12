@@ -9,7 +9,7 @@ class EyeToyButton
   float halfRadius;
   public color buttonColor = color(0,255,0);
   public color strokeColor;
-  public float thresholdDetection = 10;
+  public float thresholdDetection;
   public float activationThreshold;
   float pixelArea;
   
@@ -24,13 +24,14 @@ class EyeToyButton
      position = new PVector(width/2, height/2);
      eyeToyListeners = new ArrayList<EyeToyListener>();
      buttonColor = color(0,255,0);
+     setRadius(20);
   }
   
   public void setRadius(float radius)
   {
     this.radius = radius;
-    pixelArea = PI * radius *radius;
-    thresholdDetection = pixelArea /2;
+    pixelArea = 0; //PI * radius *radius;
+    thresholdDetection = 1;//pixelArea /100;
   }
   
   boolean pressing = false;
