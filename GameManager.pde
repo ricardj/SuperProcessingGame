@@ -1,5 +1,7 @@
 public class GameManager implements EyeToyListener
 {
+  public PVector[] startPositions;
+  
   //The game manager every certain time spawns a button.
   //The button goes to a press area. If the button is pressed when it is in the area, then it adds puntuaction 
   public float spawningPeriod = 6f;
@@ -35,6 +37,11 @@ public class GameManager implements EyeToyListener
     gameColors[3] = color(255, 0, 0);
     
     score = 0;
+    
+    startPositions = new PVector[3];
+    startPositions[0] = new PVector(0,height/2);
+    startPositions[1] = new PVector(width, height/2);
+    startPositions[2] = new PVector(width/2, height);
   }
   
   public void eyeToyPressed(int identifier){
@@ -94,9 +101,12 @@ public class GameManager implements EyeToyListener
     //Create and add the spawn note to the list
     
     if(currentNote != null) lives--;
+    if(lives==0) currentScene = Scene.EndScene;
     destroyNote();
     int randomNumber = int(random(0,TOTAL_BUTTONS));
     currentNote = new Note(randomNumber, gameColors[randomNumber]);
+    int anotherRandomNumber = int(random(0,3));
+    currentNote.position.set(startPositions[anotherRandomNumber]);
     spawnedNotes.add(currentNote);
   }
   

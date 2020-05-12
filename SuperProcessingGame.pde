@@ -2,14 +2,14 @@
 import processing.video.*;
 import processing.sound.*;
 
+//GLOBAL VARIABLES
 final int TOTAL_BUTTONS = 4;
 PFont TITLE_FONT;
 
-
-//We setup the scenes of our game
 public enum Scene {StartScene, GameScene, EndScene};
-public Scene currentScene = Scene.GameScene;
+public Scene currentScene = Scene.EndScene;
 public StartScene startScene;
+public EndScene endScene;
 
 //WE setup the engine of the game
 Capture video;
@@ -40,7 +40,7 @@ void setup() {
   video.start();
   
   startScene = new StartScene();
-  
+  endScene = new EndScene();
   gameManager = new GameManager();
   
   //We create the four buttons
@@ -75,6 +75,7 @@ void draw() {
      break;
      
      case EndScene:
+       endScene.render();
        //WE would render the puntuation of the player
        //Restart to the start screen
      break;
@@ -99,7 +100,7 @@ public void CreateEyeToyButtons()
      });
      myEyeToyButton.addListener(gameManager);
      myEyeToyButton.buttonColor = gameManager.gameColors[i];
-     myEyeToyButton.setRadius(20);
+     myEyeToyButton.setRadius(50);
      eyeToyButtons.add(myEyeToyButton);
   }
   
@@ -108,10 +109,10 @@ public void CreateEyeToyButtons()
   float verticalPadding = 30;
   float upButtonsSeparation = 100;
   
-  eyeToyButtons.get(0).position = new PVector(lateralPadding, height/2);
+  eyeToyButtons.get(0).position = new PVector(lateralPadding, height - verticalPadding);
   eyeToyButtons.get(1).position = new PVector(lateralPadding, verticalPadding);
   eyeToyButtons.get(2).position = new PVector(width - lateralPadding, verticalPadding);
-  eyeToyButtons.get(3).position = new PVector(width - lateralPadding, height/2);
+  eyeToyButtons.get(3).position = new PVector(width - lateralPadding, height -verticalPadding);
 
   
 }

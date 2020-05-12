@@ -1,5 +1,7 @@
 class Note
 {
+   
+   
     //Notes start at the bottom of the screen and go to the center. They stay there.
    public color noteColor = color(55);
    public PVector position = new PVector(width/2, height);

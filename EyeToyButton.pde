@@ -30,16 +30,20 @@ class EyeToyButton
   public void setRadius(float radius)
   {
     this.radius = radius;
-    pixelArea = 0; //PI * radius *radius;
-    thresholdDetection = 1;//pixelArea /100;
+    pixelArea = 1;//PI * radius *radius;
+    thresholdDetection = PI * radius *radius /100;
   }
   
   boolean pressing = false;
+  float animationFrequency = 0.003;
+  float animationAmplitude = 3;
   public void render()
   {
     noStroke();
     fill(buttonColor);
-    circle(position.x, position.y, radius * 2);
+    //We ami,ate the radius
+    float animatedRadius = radius +  sin(millis() * animationFrequency + PI/4*identifier) * animationAmplitude;
+    circle(position.x, position.y, animatedRadius * 2);
     
     //TODO: With the render we asume also update?
     if(activationThreshold >= thresholdDetection && !pressing){
