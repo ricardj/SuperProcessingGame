@@ -9,8 +9,9 @@ public class EndScene
  public float animationAmplitude = 10;
  public void render()
  {
-    background(0);
+    background(color(87, 24, 69));
     textFont(TITLE_FONT);
+    rectMode(CENTER); 
     textSize(59);
     textAlign(CENTER);
     fill(255);
@@ -23,6 +24,9 @@ public class EndScene
     textSize(100 + sin(millis() * animationFrequency) * animationAmplitude);
     text(str(int(gameManager.score)),width/2, height/2 + 40);
  }
-  
+  public void inputKeyDetected()
+  {
+     currentScene = Scene.StartScene; 
+  }
   
 }

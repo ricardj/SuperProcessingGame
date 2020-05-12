@@ -7,7 +7,7 @@ final int TOTAL_BUTTONS = 4;
 PFont TITLE_FONT;
 
 public enum Scene {StartScene, GameScene, EndScene};
-public Scene currentScene = Scene.EndScene;
+public Scene currentScene = Scene.StartScene;
 public StartScene startScene;
 public EndScene endScene;
 
@@ -83,6 +83,22 @@ void draw() {
   }
 }
 
+void keyPressed()
+{
+  print("Hello there");
+  switch(currentScene)
+  {
+    case StartScene:
+      println("Input detected");
+      startScene.inputKeyDetected();
+    break;
+    case GameScene:
+    break;
+    case EndScene:
+      endScene.inputKeyDetected();
+    break;
+  }
+}
 
 public void CreateEyeToyButtons()
 {
@@ -114,5 +130,4 @@ public void CreateEyeToyButtons()
   eyeToyButtons.get(2).position = new PVector(width - lateralPadding, verticalPadding);
   eyeToyButtons.get(3).position = new PVector(width - lateralPadding, height -verticalPadding);
 
-  
 }

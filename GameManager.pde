@@ -120,6 +120,16 @@ public class GameManager implements EyeToyListener
     
   }
   
+  public void startGame()
+  {
+    destroyNote();
+     lives = 3;
+     score = 0;
+     spawningPeriod = 6;
+     spawningTimer = 0;
+    
+  }
+  
 }
 
 /*
