@@ -1,6 +1,5 @@
 public class EyeToyEngine
 {
-   private EyeToyEngine instance;
    PImage prev;
    PImage mask;
    int threshold =25;  //mask threshold

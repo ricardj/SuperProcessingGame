@@ -1,4 +1,4 @@
 interface EyeToyListener
 {
-   public void eyeToyPressed();
+   public void eyeToyPressed(int identifier);
 }
