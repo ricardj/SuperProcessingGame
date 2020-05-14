@@ -16,6 +16,7 @@ EyeToyEngine eyeToyEngine;
 GameManager gameManager;
 SequenceManager sequenceManager;
 
+public Scene level = Scene.SequenceScene;
 
 //We load the main song of our game
 SoundFile soundFile;
@@ -121,13 +122,14 @@ public void CreateEyeToyButtons()
   for(int i = 0; i < TOTAL_BUTTONS; i++)
   {
      EyeToyButton myEyeToyButton = eyeToyEngine.createEyeToyButton();
-     myEyeToyButton.addListener(new EyeToyListener(){
+   /*  myEyeToyButton.addListener(new EyeToyListener(){
         public void eyeToyPressed(int identifier)
         {
           println("Han pulsado el botón " +  str(identifier));
         }
-     });
+     });*/
      myEyeToyButton.addListener(gameManager);
+     myEyeToyButton.addListener(sequenceManager);
      myEyeToyButton.buttonColor = gameManager.gameColors[i];
      myEyeToyButton.setRadius(50);
      eyeToyButtons.add(myEyeToyButton);
