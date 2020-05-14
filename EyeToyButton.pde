@@ -5,6 +5,7 @@ class EyeToyButton
   public ArrayList<EyeToyListener> eyeToyListeners;
  
   public PVector position;
+  public PImage buttonImage;
   float radius = 20;
   float halfRadius;
   public color buttonColor = color(0,255,0);
@@ -43,7 +44,13 @@ class EyeToyButton
     fill(buttonColor);
     //We ami,ate the radius
     float animatedRadius = radius +  sin(millis() * animationFrequency + PI/4*identifier) * animationAmplitude;
-    circle(position.x, position.y, animatedRadius * 2);
+    if(buttonImage != null)
+    {
+      image(buttonImage, position.x - animatedRadius, position.y - animatedRadius, animatedRadius*2, animatedRadius*2);
+    }else
+    {
+      circle(position.x, position.y, animatedRadius * 2);
+    }
     
     //TODO: With the render we asume also update?
     if(activationThreshold >= thresholdDetection && !pressing){

@@ -6,7 +6,7 @@ final int TOTAL_BUTTONS = 4;
 PFont TITLE_FONT;
 
 public enum Scene {StartScene, GameScene, SequenceScene, EndScene};
-public Scene currentScene = Scene.SequenceScene;
+public Scene currentScene = Scene.StartScene;
 public StartScene startScene;
 public EndScene endScene;
 
@@ -24,14 +24,19 @@ SoundFile soundFile;
 ArrayList<EyeToyButton> eyeToyButtons;
 
 
+PImage upLeftButton;
+PImage downLeftButton;
+PImage downRightButton;
+PImage upRightButton;
+
 void setup() {
   
   //We activate the webcam
   size(640, 360);
   
   //We load the soundfile
-  soundFile = new SoundFile(this, "Alan Walker - Alone.mp3");
-  soundFile.loop();
+  //soundFile = new SoundFile(this, "Alan Walker - Alone.mp3");
+  //soundFile.loop();
   
   //The main font
   TITLE_FONT = createFont("Gamegirl.ttf",32);
@@ -44,6 +49,12 @@ void setup() {
   endScene = new EndScene();
   gameManager = new GameManager();
   sequenceManager = new SequenceManager();
+  
+  //We load the images
+  upLeftButton = loadImage("BotonArribaIzquierda.png");
+  downLeftButton  = loadImage("BotonAbajoIzquierda.png");
+  downRightButton  = loadImage("BotonAbajoDerecha.png");
+  upRightButton = loadImage("BotonArribaDerecha.png");
 
   
   //We create the four buttons
@@ -134,13 +145,18 @@ public void CreateEyeToyButtons()
   }
   
   
-  float lateralPadding = 30;
-  float verticalPadding = 30;
+  float lateralPadding = 50;
+  float verticalPadding = 50;
   float upButtonsSeparation = 100;
+
   
   eyeToyButtons.get(0).position = new PVector(lateralPadding, height - verticalPadding);
+  eyeToyButtons.get(0).buttonImage = downLeftButton;
   eyeToyButtons.get(1).position = new PVector(lateralPadding, verticalPadding);
+  eyeToyButtons.get(1).buttonImage = upLeftButton;
   eyeToyButtons.get(2).position = new PVector(width - lateralPadding, verticalPadding);
+  eyeToyButtons.get(2).buttonImage = upRightButton;
   eyeToyButtons.get(3).position = new PVector(width - lateralPadding, height -verticalPadding);
+  eyeToyButtons.get(3).buttonImage = downRightButton;
 
 }
