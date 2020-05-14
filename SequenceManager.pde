@@ -22,7 +22,7 @@ public class SequenceManager implements EyeToyListener
   public int lives = 3;
   
   //Render sequence
-    public float spaceInterval = 80;
+    public float spaceInterval = 50;
 
   
   //Some sounds
@@ -47,17 +47,15 @@ public class SequenceManager implements EyeToyListener
     //Creating start position possibilities
     for(int i = 0; i < 3; i++)
     {
-      for(int j = 0; j < 4; j++){
+      for(int j = 3; j >= 0; j--){
         switch(i){
           //First position
           case 0:
             startPositions[0][j] = new PVector(0 + (j * spaceInterval),height/2);
           break;
-          
           case 1:
-            startPositions[1][j] = new PVector(width - (j * spaceInterval),height/2);
+            startPositions[1][j] = new PVector(width - ((2-j) * spaceInterval),height/2);
           break;
-          
           case 2:
             startPositions[2][j] = new PVector(width/2 + ((j - 1) * spaceInterval),height/2);
           break;
@@ -71,20 +69,23 @@ public class SequenceManager implements EyeToyListener
   }
   
   public void eyeToyPressed(int identifier){
+    
+    if(currentScene == Scene.SequenceScene){
+    
       //We get the identifier
-      if(currentNote != null)
-      {
-        if(identifier == currentNote.identifier)
+      if(spawnedNotes.size() != 0){
+        if(identifier == spawnedNotes.get(0).identifier)
         {
-          if(currentNote.isFinalPosition)
+          if(spawnedNotes.get(0).isFinalPosition)
           {
             score += 10;
             destroyNote();
           }
         }
+      }
+    }
         //We check that is the current button in safe zone
         //if it is, we add punctuation and destroy button
-     }
   }
   
   public void render()
@@ -94,12 +95,21 @@ public class SequenceManager implements EyeToyListener
     spawningTimer += delta/1000;
     if(spawningTimer > spawningPeriod)
     {
+       if(spawnedNotes.size() != 0){
+         lives--;
+         println("lives " + lives);
+         int currentSize = spawnedNotes.size();
+         for(int i = 0; i < currentSize; i++){
+           if (score > 0) score -= 10;
+           destroyNote();
+         }
+       }
        spawningTimer = 0;
        spawningPeriod -= spawningPeriod > minimumThreshold ? decreasingThreshold : 0;
-       spawnNote(0);
-       spawnNote(1);
-       spawnNote(2);
-
+       int randomPosition = int(random(0,3));
+       spawnNote(0, randomPosition);
+       spawnNote(1, randomPosition);
+       spawnNote(2, randomPosition);
     }
     
     for(int i = 0; i < spawnedNotes.size(); i++)
@@ -125,16 +135,12 @@ public class SequenceManager implements EyeToyListener
   }
   
   
-  public void spawnNote(int index)
+  public void spawnNote(int index, int anotherRandomNumber)
   {
     //Create and add the spawn note to the list
-    
-    if(currentNote != null) lives--;
     if(lives==0) currentScene = Scene.EndScene;
-    destroyNote();
     int randomNumber = int(random(0,TOTAL_BUTTONS));
-    currentNote = new Note(randomNumber, gameColors[randomNumber], new PVector(width/2, height/2));
-    int anotherRandomNumber = int(random(0,3));
+    currentNote = new Note(randomNumber, gameColors[randomNumber], new PVector(startPositions[anotherRandomNumber][index].x, height/2));
     currentNote.position.set(startPositions[anotherRandomNumber][index]);
     spawnedNotes.add(currentNote);
   }
@@ -146,7 +152,6 @@ public class SequenceManager implements EyeToyListener
     {
       spawnedNotes.remove(0);
     }
-    
   }
   
   public void startGame()

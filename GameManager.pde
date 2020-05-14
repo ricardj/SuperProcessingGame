@@ -45,6 +45,8 @@ public class GameManager implements EyeToyListener
   }
   
   public void eyeToyPressed(int identifier){
+    
+    if(currentScene == Scene.GameScene){
       //We get the identifier
       if(currentNote != null)
       {
@@ -59,6 +61,7 @@ public class GameManager implements EyeToyListener
         //We check that is the current button in safe zone
         //if it is, we add punctuation and destroy button
      }
+    }
   }
   
   public void render()

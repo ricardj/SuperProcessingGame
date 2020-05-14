@@ -22,7 +22,11 @@ public class EndScene
     fill(255);
 
     textSize(100 + sin(millis() * animationFrequency) * animationAmplitude);
-    text(str(int(gameManager.score)),width/2, height/2 + 40);
+    if(level == Scene.SequenceScene){
+      text(str(int(sequenceManager.score)),width/2, height/2 + 40);
+    }else{
+      text(str(int(gameManager.score)),width/2, height/2 + 40);
+    }
  }
   public void inputKeyDetected()
   {
