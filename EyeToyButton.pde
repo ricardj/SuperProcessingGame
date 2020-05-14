@@ -1,3 +1,5 @@
+
+public static int globalIdentifier = 0;
 class EyeToyButton
 {
   public ArrayList<EyeToyListener> eyeToyListeners;
@@ -7,37 +9,47 @@ class EyeToyButton
   float halfRadius;
   public color buttonColor = color(0,255,0);
   public color strokeColor;
-  public float thresholdDetection = 10;
-
+  public float thresholdDetection;
   public float activationThreshold;
   float pixelArea;
   
+  
+  
+  public int identifier;
+  
   public EyeToyButton()
   {
-   position = new PVector(width/2, height/2);
-   eyeToyListeners = new ArrayList<EyeToyListener>();
-   buttonColor = color(0,255,0);
+    identifier = globalIdentifier;
+    globalIdentifier++;
+     position = new PVector(width/2, height/2);
+     eyeToyListeners = new ArrayList<EyeToyListener>();
+     buttonColor = color(0,255,0);
+     setRadius(20);
   }
   
   public void setRadius(float radius)
   {
     this.radius = radius;
-    pixelArea = PI * radius *radius;
-    thresholdDetection = pixelArea /2;
+    pixelArea = 1;//PI * radius *radius;
+    thresholdDetection = PI * radius *radius /100;
   }
   
   boolean pressing = false;
+  float animationFrequency = 0.003;
+  float animationAmplitude = 3;
   public void render()
   {
     noStroke();
-    fill(0,200,0);
-    circle(position.x, position.y, radius * 2);
+    fill(buttonColor);
+    //We ami,ate the radius
+    float animatedRadius = radius +  sin(millis() * animationFrequency + PI/4*identifier) * animationAmplitude;
+    circle(position.x, position.y, animatedRadius * 2);
     
     //TODO: With the render we asume also update?
     if(activationThreshold >= thresholdDetection && !pressing){
        for(EyeToyListener e: eyeToyListeners)
        {
-          e.eyeToyPressed(); 
+          e.eyeToyPressed(identifier); 
        }
        pressing = true;
     }else
