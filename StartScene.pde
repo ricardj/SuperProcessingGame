@@ -107,6 +107,7 @@ class StartScene
       //Level2
       if ( y1 < mouseY && mouseY < y2 && xLvl2_min < mouseX && mouseX < xLvl2_max) {
         currentScene = Scene.SequenceScene;
+        sequenceManager.startGame();
       }
 
       //Exit
