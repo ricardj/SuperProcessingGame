@@ -1,4 +1,3 @@
-
 import processing.video.*;
 import processing.sound.*;
 
@@ -6,8 +5,8 @@ import processing.sound.*;
 final int TOTAL_BUTTONS = 4;
 PFont TITLE_FONT;
 
-public enum Scene {StartScene, GameScene, EndScene};
-public Scene currentScene = Scene.StartScene;
+public enum Scene {StartScene, GameScene, SequenceScene, EndScene};
+public Scene currentScene = Scene.SequenceScene;
 public StartScene startScene;
 public EndScene endScene;
 
@@ -15,6 +14,8 @@ public EndScene endScene;
 Capture video;
 EyeToyEngine eyeToyEngine;
 GameManager gameManager;
+SequenceManager sequenceManager;
+
 
 //We load the main song of our game
 SoundFile soundFile;
@@ -42,6 +43,8 @@ void setup() {
   startScene = new StartScene();
   endScene = new EndScene();
   gameManager = new GameManager();
+  sequenceManager = new SequenceManager();
+
   
   //We create the four buttons
   eyeToyEngine = new EyeToyEngine();
@@ -74,6 +77,14 @@ void draw() {
        gameManager.render();
      break;
      
+     case SequenceScene:
+       //Playing song, button aparition and puntuation
+       background(0);
+       image(video, 0 ,0 ,640,360);
+       eyeToyEngine.render();
+       sequenceManager.render();
+     break;
+     
      case EndScene:
        endScene.render();
        //WE would render the puntuation of the player
@@ -93,6 +104,8 @@ void keyPressed()
       startScene.inputKeyDetected();
     break;
     case GameScene:
+    break;
+    case SequenceScene:
     break;
     case EndScene:
       endScene.inputKeyDetected();

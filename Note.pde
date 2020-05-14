@@ -6,17 +6,18 @@ class Note
    public color noteColor = color(55);
    public PVector position = new PVector(width/2, height);
    public float radius = 20;
-   public final PVector finalPosition = new PVector(width/2, height/2);
+   public PVector finalPosition;
    public final float minimumActivationDistance = 5f;
    public boolean isFinalPosition = false;
    public final float lerpIntensity = 0.1;
    public int identifier;
 
    
-   public Note(int identifier, color noteColor) 
+   public Note(int identifier, color noteColor, PVector finalP) 
    {
      this.identifier = identifier;
      this.noteColor = noteColor;
+     this.finalPosition = finalP;
    }
    
    public void render(){

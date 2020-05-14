@@ -104,7 +104,7 @@ public class GameManager implements EyeToyListener
     if(lives==0) currentScene = Scene.EndScene;
     destroyNote();
     int randomNumber = int(random(0,TOTAL_BUTTONS));
-    currentNote = new Note(randomNumber, gameColors[randomNumber]);
+    currentNote = new Note(randomNumber, gameColors[randomNumber], new PVector(width/2, height/2));
     int anotherRandomNumber = int(random(0,3));
     currentNote.position.set(startPositions[anotherRandomNumber]);
     spawnedNotes.add(currentNote);
