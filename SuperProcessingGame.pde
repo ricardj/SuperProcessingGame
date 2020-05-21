@@ -16,7 +16,7 @@ Capture video;
 EyeToyEngine eyeToyEngine;
 GameManager gameManager;
 SequenceManager sequenceManager;
-
+MusicManager musicManager;
 
 
 //We load the main song of our game
@@ -57,6 +57,9 @@ void setup() {
   downLeftButton  = loadImage("BotonAbajoIzquierda.png");
   downRightButton  = loadImage("BotonAbajoDerecha.png");
   upRightButton = loadImage("BotonArribaDerecha.png");
+  
+  //We instantiate thge music manager
+  musicManager = new MusicManager(this);
 
   
   //We create the four buttons
@@ -103,8 +106,8 @@ void draw() {
        //WE would render the puntuation of the player
        //Restart to the start screen
      break;
-    
   }
+   musicManager.render();
 }
 
 void keyPressed()
