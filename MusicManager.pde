@@ -10,8 +10,8 @@ public class MusicManager
     this.papplet = papplet;
     songs = new ArrayList<SoundFile>();
     songs.add(new SoundFile(papplet,"HighwayToHell.mp3"));
-    songs.add(new SoundFile(papplet,"Alan Walker - Alone.mp3"));
-    songs.add(new SoundFile(papplet,"AvengersTheme.mp3")); 
+    //songs.add(new SoundFile(papplet,"Alan Walker - Alone.mp3"));
+    //songs.add(new SoundFile(papplet,"AvengersTheme.mp3")); 
   }
   
   public void render()

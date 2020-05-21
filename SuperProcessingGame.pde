@@ -12,7 +12,7 @@ public StartScene startScene;
 public EndScene endScene;
 
 //WE setup the engine of the game
-Capture video;
+Capture myVideo;
 EyeToyEngine eyeToyEngine;
 GameManager gameManager;
 SequenceManager sequenceManager;
@@ -44,8 +44,8 @@ void setup() {
   TITLE_FONT = createFont("Gamegirl.ttf",32);
   
   //The video
-  video = new Capture(this, 640, 360, 30);
-  video.start();
+  myVideo = new Capture(this, 640, 360, 30);
+  myVideo.start();
   
   startScene = new StartScene();
   endScene = new EndScene();
@@ -59,7 +59,7 @@ void setup() {
   upRightButton = loadImage("BotonArribaDerecha.png");
   
   //We instantiate thge music manager
-  musicManager = new MusicManager(this);
+  //musicManager = new MusicManager(this);
 
   
   //We create the four buttons
@@ -68,12 +68,13 @@ void setup() {
 }
 
 void captureEvent(Capture video) {
-  if(video != null)
+  if(video.available())
   {
     video.read();
 
     eyeToyEngine.update(video);
   }
+  
 }
 
 
@@ -88,7 +89,7 @@ void draw() {
      case GameScene:
        //Playing song, button aparition and puntuation
        background(0);
-       image(video, 0 ,0 ,640,360);
+       image(myVideo, 0 ,0 ,640,360);
        eyeToyEngine.render();
        gameManager.render();
      break;
@@ -96,7 +97,7 @@ void draw() {
      case SequenceScene:
        //Playing song, button aparition and puntuation
        background(0);
-       image(video, 0 ,0 ,640,360);
+       image(myVideo, 0 ,0 ,640,360);
        eyeToyEngine.render();
        sequenceManager.render();
      break;
@@ -107,7 +108,7 @@ void draw() {
        //Restart to the start screen
      break;
   }
-   musicManager.render();
+   //musicManager.render();
 }
 
 void keyPressed()
