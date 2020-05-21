@@ -144,7 +144,10 @@ public class SequenceManager implements EyeToyListener
       previousScene = Scene.SequenceScene;
     }
     int randomNumber = int(random(0,TOTAL_BUTTONS));
-    currentNote = new Note(randomNumber, gameColors[randomNumber], new PVector(startPositions[anotherRandomNumber][index].x, height/2));
+    
+    //currentNote = new Note(randomNumber, gameColors[randomNumber], new PVector(startPositions[anotherRandomNumber][index].x, height/2));
+    currentNote = new Note(randomNumber, gameColors[randomNumber], new PVector(width/2 + ((index - 1) * spaceInterval), height/2));
+    
     currentNote.position.set(startPositions[anotherRandomNumber][index]);
     spawnedNotes.add(currentNote);
   }
