@@ -36,7 +36,7 @@ public class SequenceManager implements EyeToyListener
     color(120, 10, 10);
     gameColors = new color[TOTAL_BUTTONS];
     gameColors[0] = color(0, 0, 255);
-    gameColors[1] = color(255, 100, 0); //orange
+    gameColors[1] = color(234, 225, 0);//orange
     gameColors[2] = color(0, 255, 0); //yellow green
     gameColors[3] = color(255, 0, 0);
     
@@ -138,7 +138,11 @@ public class SequenceManager implements EyeToyListener
   public void spawnNote(int index, int anotherRandomNumber)
   {
     //Create and add the spawn note to the list
-    if(lives==0) currentScene = Scene.EndScene;
+    if(lives==0) 
+    {
+      currentScene = Scene.EndScene;
+      previousScene = Scene.SequenceScene;
+    }
     int randomNumber = int(random(0,TOTAL_BUTTONS));
     currentNote = new Note(randomNumber, gameColors[randomNumber], new PVector(startPositions[anotherRandomNumber][index].x, height/2));
     currentNote.position.set(startPositions[anotherRandomNumber][index]);

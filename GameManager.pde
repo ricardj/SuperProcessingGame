@@ -32,7 +32,7 @@ public class GameManager implements EyeToyListener
     color(120, 10, 10);
     gameColors = new color[TOTAL_BUTTONS];
     gameColors[0] = color(0, 0, 255);
-    gameColors[1] = color(234, 225, 0); //orange
+    gameColors[1] = color(234, 225, 0); //
     gameColors[2] = color(0, 255, 0); //yellow green
     gameColors[3] = color(255, 0, 0);
     
@@ -104,7 +104,11 @@ public class GameManager implements EyeToyListener
     //Create and add the spawn note to the list
     
     if(currentNote != null) lives--;
-    if(lives==0) currentScene = Scene.EndScene;
+    if(lives==0) 
+    {
+      currentScene = Scene.EndScene;
+      previousScene = Scene.GameScene;
+    }
     destroyNote();
     int randomNumber = int(random(0,TOTAL_BUTTONS));
     currentNote = new Note(randomNumber, gameColors[randomNumber], new PVector(width/2, height/2));

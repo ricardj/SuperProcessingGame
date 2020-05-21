@@ -22,7 +22,7 @@ public class EndScene
     fill(255);
 
     textSize(100 + sin(millis() * animationFrequency) * animationAmplitude);
-    if(level == Scene.SequenceScene){
+    if(previousScene == Scene.SequenceScene){
       text(str(int(sequenceManager.score)),width/2, height/2 + 40);
     }else{
       text(str(int(gameManager.score)),width/2, height/2 + 40);

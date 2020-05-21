@@ -7,6 +7,7 @@ PFont TITLE_FONT;
 
 public enum Scene {StartScene, GameScene, SequenceScene, EndScene};
 public Scene currentScene = Scene.StartScene;
+public Scene previousScene = Scene.SequenceScene;
 public StartScene startScene;
 public EndScene endScene;
 
@@ -16,7 +17,7 @@ EyeToyEngine eyeToyEngine;
 GameManager gameManager;
 SequenceManager sequenceManager;
 
-public Scene level = Scene.SequenceScene;
+
 
 //We load the main song of our game
 SoundFile soundFile;
